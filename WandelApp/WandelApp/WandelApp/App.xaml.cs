@@ -1,5 +1,4 @@
 ﻿using System;
-using WandelApp.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using WandelApp.Views;
@@ -15,7 +14,7 @@ namespace WandelApp
             InitializeComponent();
 
 
-            MainPage = new LoginPage();
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()

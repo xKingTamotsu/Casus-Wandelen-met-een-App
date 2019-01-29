@@ -8,8 +8,7 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<application android:label="WandelApp.Android">
-		<meta-data android:name="com.google.android.maps.V2.API_KEY" android:value="AIzaSyBpfuAB480tj9VEeOBq7gvHZ_MBDEQrHMo" />
-		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyBpfuAB480tj9VEeOBq7gvHZ_MBDEQrHMo" />
 	</application>
 	<uses-permissions android:name="android.permission.INTERNET" />
 	<uses-permissions android:name="android.permission.ACCESS_NETWORK_STATE" />
