@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace WandelApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MapPage : ContentPage
+    public partial class MakeRoute : ContentPage
     {
-        public MapPage()
+        public MakeRoute()
         {
             InitializeComponent();
         }

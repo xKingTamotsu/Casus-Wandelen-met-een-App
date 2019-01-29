@@ -18,10 +18,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\ViewRoutes.xaml.cs">
+      <DependentUpon>ViewRoutes.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MakeRoute.xaml.cs">
+      <DependentUpon>MakeRoute.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Views\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MapPage.xaml">
+    <EmbeddedResource Update="Views\MakeRoute.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

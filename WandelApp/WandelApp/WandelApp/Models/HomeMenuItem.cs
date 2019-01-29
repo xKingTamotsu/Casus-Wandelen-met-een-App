@@ -6,8 +6,8 @@ namespace WandelApp.Models
 {
     public enum MenuItemType
     {
-        Browse,
-        About
+        viewRoutes,
+        makeRoute
     }
     public class HomeMenuItem
     {

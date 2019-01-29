@@ -6,9 +6,9 @@ using Xamarin.Forms.Xaml;
 namespace WandelApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AboutPage : ContentPage
+    public partial class ViewRoutes : ContentPage
     {
-        public AboutPage()
+        public ViewRoutes()
         {
             InitializeComponent();
         }

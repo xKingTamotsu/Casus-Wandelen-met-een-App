@@ -17,7 +17,7 @@ namespace WandelApp.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.viewRoutes, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)
@@ -26,11 +26,11 @@ namespace WandelApp.Views
             {
                 switch (id)
                 {
-                    case (int)MenuItemType.Browse:
-                        MenuPages.Add(id, new NavigationPage(new ItemsPage()));
+                    case (int)MenuItemType.viewRoutes:
+                        MenuPages.Add(id, new NavigationPage(new ViewRoutes()));
                         break;
-                    case (int)MenuItemType.About:
-                        MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                    case (int)MenuItemType.makeRoute:
+                        MenuPages.Add(id, new NavigationPage(new MakeRoute()));
                         break;
                 }
             }
