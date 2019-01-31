@@ -5,7 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="36ff78c0bff0490186913c7570891df3" Name="Diagram1">
-        <EntityTypeShape EntityType="wandelappModel.TUser" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="wandelappModel.TCategoryPOI" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="wandelappModel.TPOI" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="wandelappModel.TRole" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="wandelappModel.TRoute" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="wandelappModel.TUser" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="wandelappModel.History" Width="1.5" PointX="0.75" PointY="6.75" />
+        <AssociationConnector Association="wandelappModel.TRouteUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

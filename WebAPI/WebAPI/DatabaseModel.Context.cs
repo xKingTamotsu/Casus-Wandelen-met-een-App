@@ -25,6 +25,11 @@ namespace WebAPI
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<TCategoryPOI> TCategoryPOI { get; set; }
+        public virtual DbSet<TPOI> TPOI { get; set; }
+        public virtual DbSet<TRole> TRole { get; set; }
+        public virtual DbSet<TRoute> TRoute { get; set; }
         public virtual DbSet<TUser> TUser { get; set; }
+        public virtual DbSet<History> History { get; set; }
     }
 }

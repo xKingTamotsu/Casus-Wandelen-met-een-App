@@ -5,56 +5,289 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="wandelappModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'wandelapp.dbo.History' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="username" />
+            <PropertyRef Name="routeId" />
+            <PropertyRef Name="dateWalked" />
+            <PropertyRef Name="personalRating" />
+          </Key>
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="routeId" Type="int" Nullable="false" />
+          <Property Name="dateWalked" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="personalRating" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TCategoryPOI">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TPOI">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="routeId" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="latitude" Type="float" Nullable="false" />
+          <Property Name="longitude" Type="float" Nullable="false" />
+          <Property Name="category" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRole">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRoute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="length" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="difficulty" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="wheelchairAccessible" Type="bit" Nullable="false" />
+          <Property Name="approved" Type="bit" Nullable="false" />
+          <Property Name="createdBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="createdAt" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="routeRating" Type="int" Nullable="false" />
+          <Property Name="distanceFromUser" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TRouteUser">
+          <Key>
+            <PropertyRef Name="routeId" />
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="routeId" Type="int" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="TUser">
           <Key>
             <PropertyRef Name="username" />
           </Key>
           <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="roleId" Type="int" Nullable="false" />
+          <Property Name="role" Type="int" Nullable="false" />
           <Property Name="createdAt" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="resetted" Type="bit" Nullable="false" />
           <Property Name="firstLogin" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_TRouteUser_TRoute">
+          <End Role="TRoute" Type="Self.TRoute" Multiplicity="1" />
+          <End Role="TRouteUser" Type="Self.TRouteUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRoute">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TRouteUser">
+              <PropertyRef Name="routeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRouteUser_TUser">
+          <End Role="TUser" Type="Self.TUser" Multiplicity="1" />
+          <End Role="TRouteUser" Type="Self.TRouteUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TUser">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="TRouteUser">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="wandelappModelStoreContainer">
+          <EntitySet Name="TCategoryPOI" EntityType="Self.TCategoryPOI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TPOI" EntityType="Self.TPOI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRole" EntityType="Self.TRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRoute" EntityType="Self.TRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRouteUser" EntityType="Self.TRouteUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TUser" EntityType="Self.TUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [History].[username] AS [username], 
+    [History].[routeId] AS [routeId], 
+    [History].[dateWalked] AS [dateWalked], 
+    [History].[personalRating] AS [personalRating]
+    FROM [dbo].[History] AS [History]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_TRouteUser_TRoute" Association="Self.FK_TRouteUser_TRoute">
+            <End Role="TRoute" EntitySet="TRoute" />
+            <End Role="TRouteUser" EntitySet="TRouteUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRouteUser_TUser" Association="Self.FK_TRouteUser_TUser">
+            <End Role="TUser" EntitySet="TUser" />
+            <End Role="TRouteUser" EntitySet="TRouteUser" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="wandelappModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="wandelappEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TCategoryPOI" EntityType="wandelappModel.TCategoryPOI" />
+          <EntitySet Name="TPOI" EntityType="wandelappModel.TPOI" />
+          <EntitySet Name="TRole" EntityType="wandelappModel.TRole" />
+          <EntitySet Name="TRoute" EntityType="wandelappModel.TRoute" />
           <EntitySet Name="TUser" EntityType="wandelappModel.TUser" />
+          <EntitySet Name="History" EntityType="wandelappModel.History" />
+          <AssociationSet Name="TRouteUser" Association="wandelappModel.TRouteUser">
+            <End Role="TRoute" EntitySet="TRoute" />
+            <End Role="TUser" EntitySet="TUser" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TCategoryPOI">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TPOI">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="routeId" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="Double" Nullable="false" />
+          <Property Name="longitude" Type="Double" Nullable="false" />
+          <Property Name="category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TRole">
+          <Key>
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TRoute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="length" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="difficulty" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="wheelchairAccessible" Type="Boolean" Nullable="false" />
+          <Property Name="approved" Type="Boolean" Nullable="false" />
+          <Property Name="createdBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="routeRating" Type="Int32" Nullable="false" />
+          <Property Name="distanceFromUser" Type="Double" Nullable="false" />
+          <NavigationProperty Name="TUser" Relationship="wandelappModel.TRouteUser" FromRole="TRoute" ToRole="TUser" />
+        </EntityType>
         <EntityType Name="TUser">
           <Key>
             <PropertyRef Name="username" />
           </Key>
           <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="roleId" Type="Int32" Nullable="false" />
+          <Property Name="role" Type="Int32" Nullable="false" />
           <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="resetted" Type="Boolean" Nullable="false" />
           <Property Name="firstLogin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TRoute" Relationship="wandelappModel.TRouteUser" FromRole="TUser" ToRole="TRoute" />
         </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="username" />
+            <PropertyRef Name="routeId" />
+            <PropertyRef Name="dateWalked" />
+            <PropertyRef Name="personalRating" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="routeId" Type="Int32" Nullable="false" />
+          <Property Name="dateWalked" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="personalRating" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="TRouteUser">
+          <End Type="wandelappModel.TRoute" Role="TRoute" Multiplicity="*" />
+          <End Type="wandelappModel.TUser" Role="TUser" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="wandelappModelStoreContainer" CdmEntityContainer="wandelappEntities">
+          <EntitySetMapping Name="TCategoryPOI">
+            <EntityTypeMapping TypeName="wandelappModel.TCategoryPOI">
+              <MappingFragment StoreEntitySet="TCategoryPOI">
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TPOI">
+            <EntityTypeMapping TypeName="wandelappModel.TPOI">
+              <MappingFragment StoreEntitySet="TPOI">
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="routeId" ColumnName="routeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRole">
+            <EntityTypeMapping TypeName="wandelappModel.TRole">
+              <MappingFragment StoreEntitySet="TRole">
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRoute">
+            <EntityTypeMapping TypeName="wandelappModel.TRoute">
+              <MappingFragment StoreEntitySet="TRoute">
+                <ScalarProperty Name="distanceFromUser" ColumnName="distanceFromUser" />
+                <ScalarProperty Name="routeRating" ColumnName="routeRating" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="approved" ColumnName="approved" />
+                <ScalarProperty Name="wheelchairAccessible" ColumnName="wheelchairAccessible" />
+                <ScalarProperty Name="difficulty" ColumnName="difficulty" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TUser">
             <EntityTypeMapping TypeName="wandelappModel.TUser">
               <MappingFragment StoreEntitySet="TUser">
                 <ScalarProperty Name="firstLogin" ColumnName="firstLogin" />
                 <ScalarProperty Name="resetted" ColumnName="resetted" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="username" ColumnName="username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="History">
+            <EntityTypeMapping TypeName="wandelappModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="personalRating" ColumnName="personalRating" />
+                <ScalarProperty Name="dateWalked" ColumnName="dateWalked" />
+                <ScalarProperty Name="routeId" ColumnName="routeId" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TRouteUser" TypeName="wandelappModel.TRouteUser" StoreEntitySet="TRouteUser">
+            <EndProperty Name="TUser">
+              <ScalarProperty Name="username" ColumnName="username" />
+            </EndProperty>
+            <EndProperty Name="TRoute">
+              <ScalarProperty Name="id" ColumnName="routeId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

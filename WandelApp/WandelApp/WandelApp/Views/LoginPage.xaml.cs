@@ -29,7 +29,7 @@ namespace WandelApp.Views
             if (userCheck)
             {
                 await DisplayAlert("Login", "Your login credentials are correct.", "Ok");
-                //await Navigation.PushAsync(new MainPage());
+                await Navigation.PushModalAsync(new MainPage());
             }
             else
             {

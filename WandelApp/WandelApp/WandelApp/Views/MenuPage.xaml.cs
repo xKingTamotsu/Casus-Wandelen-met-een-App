@@ -18,6 +18,7 @@ namespace WandelApp.Views
 
             menuItems = new List<HomeMenuItem>
             {
+                new HomeMenuItem {Id = MenuItemType.home, Title = "Home"},
                 new HomeMenuItem {Id = MenuItemType.viewRoutes, Title="Route inzien" },
                 new HomeMenuItem {Id = MenuItemType.makeRoute, Title="Route maken" }
             };

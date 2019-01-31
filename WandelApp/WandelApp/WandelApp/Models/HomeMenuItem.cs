@@ -6,6 +6,7 @@ namespace WandelApp.Models
 {
     public enum MenuItemType
     {
+        home,
         viewRoutes,
         makeRoute
     }
