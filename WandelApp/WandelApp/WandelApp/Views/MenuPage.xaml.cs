@@ -34,5 +34,9 @@ namespace WandelApp.Views
                 await RootPage.NavigateFromMenu(id);
             };
         }
+
+        public void Logout(object sender, EventArgs eventArgs) {
+            Navigation.PopToRootAsync();
+        }
     }
 }

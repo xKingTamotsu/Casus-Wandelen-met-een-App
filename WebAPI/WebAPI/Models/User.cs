@@ -14,6 +14,7 @@ namespace WebAPI.Models
         public bool resetted { get; set; }
         public bool firstLogin { get; set; }
 
+        
 
         [JsonIgnore] wandelappEntities wandelappEntities;
         [JsonIgnore] private List<User> allUsers;
@@ -57,5 +58,19 @@ namespace WebAPI.Models
             return userCheck;
         }
 
+        public List<User> getAllUsers()
+        {
+            List<TUser> userDB = wandelappEntities.TUser.ToList();
+            List<User> allUsers = new List<User>();
+            foreach (var dbUser in userDB) {
+                User user = new User() {
+                    username = dbUser.username,
+                    password = dbUser.password
+                };
+                allUsers.Add(user);
+            }
+
+            return allUsers;
+        }
     }
 }

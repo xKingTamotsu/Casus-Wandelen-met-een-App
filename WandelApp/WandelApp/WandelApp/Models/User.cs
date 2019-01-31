@@ -30,12 +30,14 @@ namespace WandelApp.Models
         public async Task<bool> checkUser(User user) {
             string jsonString = JsonConvert.SerializeObject(user);
 
-            using (HttpResponseMessage response = await httpClient.PostAsJsonAsync("http://localhost:62690/api/Login/", jsonString)){
-                if (response.IsSuccessStatusCode) {
+            using (HttpResponseMessage response = await httpClient.PostAsJsonAsync("http://localhost:62690/api/login/", jsonString)){
+                if (response.IsSuccessStatusCode)
+                {
                     return response.IsSuccessStatusCode;
                 }
 
                 throw new Exception(response.ReasonPhrase);
+
             }
         }
     }
