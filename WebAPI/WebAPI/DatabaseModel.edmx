@@ -49,14 +49,14 @@ warning 6002: The table/view 'wandelapp.dbo.History' does not have a primary key
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="length" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="length" Type="float" Nullable="false" />
           <Property Name="difficulty" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="wheelchairAccessible" Type="bit" Nullable="false" />
           <Property Name="approved" Type="bit" Nullable="false" />
           <Property Name="createdBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="createdAt" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="routeRating" Type="int" Nullable="false" />
-          <Property Name="distanceFromUser" Type="float" Nullable="false" />
+          <Property Name="routeRating" Type="int" />
+          <Property Name="distanceFromUser" Type="float" />
         </EntityType>
         <EntityType Name="TRouteUser">
           <Key>
@@ -171,14 +171,14 @@ warning 6002: The table/view 'wandelapp.dbo.History' does not have a primary key
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="length" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="length" Type="Double" Nullable="false" />
           <Property Name="difficulty" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="wheelchairAccessible" Type="Boolean" Nullable="false" />
           <Property Name="approved" Type="Boolean" Nullable="false" />
           <Property Name="createdBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="createdAt" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="routeRating" Type="Int32" Nullable="false" />
-          <Property Name="distanceFromUser" Type="Double" Nullable="false" />
+          <Property Name="routeRating" Type="Int32" />
+          <Property Name="distanceFromUser" Type="Double" />
           <NavigationProperty Name="TUser" Relationship="wandelappModel.TRouteUser" FromRole="TRoute" ToRole="TUser" />
         </EntityType>
         <EntityType Name="TUser">

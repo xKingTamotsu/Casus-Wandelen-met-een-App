@@ -36,21 +36,33 @@ namespace WebAPI.Models
                     id = dbRoute.id,
                     name = dbRoute.name,
                     description = dbRoute.name,
-                    length = double.Parse(dbRoute.length),
+                    length = dbRoute.length,
                     difficulty = dbRoute.difficulty,
                     wheelchairAccessible = dbRoute.wheelchairAccessible,
                     approved = dbRoute.approved,
                     createdBy = dbRoute.createdBy,
-                    createdAt = dbRoute.createdAt,
-                    routeRating = dbRoute.routeRating,
-                    distanceFromUser = dbRoute.distanceFromUser
-                    ,
-
+                    createdAt = dbRoute.createdAt
                 };
                 allRoutes.Add(route);
             }
 
             return allRoutes;
+        }
+
+        public void AddRoute(Route route) {
+            TRoute tRoute = new TRoute() {
+                name = route.name,
+                description = route.description,
+                length = route.length,
+                difficulty = route.difficulty,
+                wheelchairAccessible = route.wheelchairAccessible,
+                approved = route.approved,
+                createdBy = route.createdBy,
+                createdAt = route.createdAt
+            };
+
+            wandelappEntities.TRoute.Add(tRoute);
+            wandelappEntities.SaveChanges();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace WandelApp.Models{
             string jsonString = JsonConvert.SerializeObject(user);
 
             using (HttpResponseMessage response =
-                await httpClient.PostAsJsonAsync("http://192.168.1.5:62690/api/login/", jsonString)){
+                await httpClient.PostAsJsonAsync("http://localhost:62690/api/login/", jsonString)){
 
                 return response.IsSuccessStatusCode;
             }

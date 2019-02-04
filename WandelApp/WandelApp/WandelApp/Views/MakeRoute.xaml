@@ -5,11 +5,23 @@
              x:Class="WandelApp.Views.MakeRoute"
              Title="Route Maken">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-            <maps:Map x:Name="MyMap"
-                      IsShowingUser="true"
-                      MapType="Street"
-            />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <maps:Map x:Name="MyMap"
+                        IsShowingUser="true"
+                        MapType="Street"
+                />
+                <Label>Route naam</Label>
+                <Entry x:Name="routeName"></Entry>
+                <Label>Route beschrijving</Label>
+                <Entry x:Name="routeDescription"></Entry>
+                <Label>Lengte Route</Label>
+                <Entry x:Name="routeLength"></Entry>
+                <Label>Route moeilijkheid</Label>
+                <Entry x:Name="routeDifficulty"></Entry>
+
+                <Button x:Name="btnRouteMaken" Clicked="BtnRouteMaken_OnClicked" Text="Route Maken"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

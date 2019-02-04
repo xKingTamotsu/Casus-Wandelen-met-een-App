@@ -27,21 +27,6 @@ namespace WebAPI.Models
             userCheck = new bool();
         }
 
-        //public List<User> GetAllUsers() {
-        //    var userListDB = wandelappEntities.User.ToList();
-
-        //    foreach (WebAPI.User userDB in userListDB) {
-        //        User user = new User() {
-        //            username = userDB.username,
-        //            password = userDB.password,
-
-        //        };
-        //        allUsers.Add(user);
-        //    }
-
-        //    return allUsers;
-        //}
-
         public bool CheckUser(User user) {
             TUser userDB = wandelappEntities.TUser.Where(u => u.username == user.username).FirstOrDefault();
 

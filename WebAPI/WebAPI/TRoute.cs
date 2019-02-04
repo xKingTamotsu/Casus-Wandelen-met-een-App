@@ -23,14 +23,14 @@ namespace WebAPI
         public int id { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public string length { get; set; }
+        public double length { get; set; }
         public string difficulty { get; set; }
         public bool wheelchairAccessible { get; set; }
         public bool approved { get; set; }
         public string createdBy { get; set; }
         public System.DateTime createdAt { get; set; }
-        public int routeRating { get; set; }
-        public double distanceFromUser { get; set; }
+        public Nullable<int> routeRating { get; set; }
+        public Nullable<double> distanceFromUser { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TUser> TUser { get; set; }
